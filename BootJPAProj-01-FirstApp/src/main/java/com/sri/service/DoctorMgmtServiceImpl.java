@@ -15,6 +15,13 @@ public class DoctorMgmtServiceImpl implements IDoctorService {
 	public String registerDoctor(Doctor doctor) {
 		IO.println("Doc id before save : "+doctor.getDocId());
 		Doctor doc = repo.save(doctor);
+		//IO.println(doc);
+		Iterable<Doctor> all = repo.findAll();
+		all.forEach(d->{IO.println(d.getDocId());
+		IO.println(d.getDocName());
+		IO.println(d.getIncome());
+		IO.println(d.getSpecialization());		
+		});
 		return "Doctor obj is saved with id value : "+doc.getDocId();
 	}
 
