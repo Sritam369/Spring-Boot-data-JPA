@@ -31,4 +31,31 @@ public class TravelService implements ITravelService {
 		return byId;
 	}
 
+	@Override
+	public void deleteTravelById(Long id) {
+	    repo.deleteById(id);		
+	}
+
+	@Override
+	public boolean existsById(Long id) {
+		boolean flag = repo.existsById(id);
+		return flag;
+	}
+
+	@Override
+	public Long count() {
+		Long count = repo.count();
+		return count;
+	}
+
+	@Override
+	public void delete(Travel travel) {
+		repo.delete(travel);		
+	}
+
+	@Override
+	public void delete() {
+		repo.deleteAll();		
+	}
+
 }

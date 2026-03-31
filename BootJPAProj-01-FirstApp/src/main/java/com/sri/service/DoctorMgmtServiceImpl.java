@@ -1,5 +1,7 @@
 package com.sri.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,22 @@ public class DoctorMgmtServiceImpl implements IDoctorService {
 		});
 		return "Doctor obj is saved with id value : "+doc.getDocId();
 	}
+
+	@Override
+	public Iterable<Doctor> bulkRegister(List<Doctor> list) {
+		
+		Iterable<Doctor> bulk = repo.saveAll(list);
+		
+		return bulk;
+	}
+
+	@Override
+	public long fetchDoctorsCount() {
+		long count = repo.count();
+		return count;
+	}
+	
+	
 
 
 }

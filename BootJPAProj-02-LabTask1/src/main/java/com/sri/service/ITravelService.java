@@ -8,4 +8,9 @@ public interface ITravelService {
 void addTravel(Travel travel);
 Iterable<Travel> getAllTravel();
 Optional<Travel> findTravelById(Long id);
+void deleteTravelById(Long id);
+boolean existsById(Long id);
+Long count();
+void delete(Travel travel);
+void delete();
 }
