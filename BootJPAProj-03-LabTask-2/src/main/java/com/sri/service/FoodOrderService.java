@@ -1,5 +1,6 @@
 package com.sri.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class FoodOrderService implements IFoodOrderService {
 	private FoodOrderRepository repo;
 	
 	@Override
-	public FoodOrder addOrder(FoodOrder order) {
+	public Optional<FoodOrder> addOrder(FoodOrder order) {
 		if(order.getQuantity()<0) {
 			IO.println("Quantity can't be 0 or less than 0");
 			System.exit(0);
@@ -34,7 +35,7 @@ public class FoodOrderService implements IFoodOrderService {
 		}
 		order.setTotalAmount(totalAmount);
 	
-		FoodOrder orders = repo.save(order);
+		Optional<FoodOrder> orders = Optional.of(repo.save(order));
 		return orders;
 	}
 
@@ -93,18 +94,26 @@ public class FoodOrderService implements IFoodOrderService {
 	}
 
 	@Override
-	public void deleteOrderById(Long id) {
+	public String deleteOrderById(Long id) {
 		if(repo.existsById(id)) {
-		repo.deleteById(id);
+			repo.deleteById(id);
+			return "order with id "+id+" deleted";
 		}
 		else {
-			IO.println(id+"id not found");
+			return id+" Id not found";
 		}
 	}
 
 	@Override
-	public void deleteOrdersByIds(List<Long> ids) {
-		repo.deleteAllById(ids);
+	public String deleteOrdersByIds(List<Long> ids) {
+		
+		Iterable<FoodOrder> allById = repo.findAllById(ids);
+		if (allById.iterator().hasNext()) {
+			repo.deleteAllById(ids);
+			return "All records with matching id deleted successfully";
+	    } else {
+	    	return "records not found";
+	    }
 	}
 
 	@Override
@@ -118,13 +127,33 @@ public class FoodOrderService implements IFoodOrderService {
 	}
 
 	@Override
-	public void deleteSelectedOrders(List<FoodOrder> list) {
+	public String deleteSelectedOrders(List<FoodOrder> list) {
+		List<Long>ids =new ArrayList<>();
+		list.forEach(l->{
+			ids.add(l.getId());
+		});
+		
+		Iterable<FoodOrder> allById = repo.findAllById(ids);
+		if(allById.iterator().hasNext()) {
 			repo.deleteAll(list);	
+				return "Selected orders deleted";
+			}
+			else {
+				return "Orders not deleted";
+			}
+			
 	}
 
 	@Override
-	public void deleteAllOrders() {
-		repo.deleteAll();		
+	public String deleteAllOrders() {
+		repo.deleteAll();
+		Long count = repo.count();
+		if(count==0) {
+			return "All orders deleted";
+		}
+		else {
+			return "Orders not deleted";
+		}
 	}
 
 }
