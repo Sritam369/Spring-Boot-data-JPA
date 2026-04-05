@@ -3,6 +3,7 @@ package com.sri.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,12 +109,21 @@ public class FoodOrderService implements IFoodOrderService {
 	public String deleteOrdersByIds(List<Long> ids) {
 		
 		Iterable<FoodOrder> allById = repo.findAllById(ids);
-		if (allById.iterator().hasNext()) {
+		Long count = StreamSupport.stream(allById.spliterator(), false).count();
+//		if (allById.iterator().hasNext()) {
+//			repo.deleteAllById(ids);
+//			return "All records with matching id deleted successfully";
+//	    } else {
+//	    	return "records not found";
+//	    }
+		
+		if(count>0) {
 			repo.deleteAllById(ids);
 			return "All records with matching id deleted successfully";
-	    } else {
-	    	return "records not found";
-	    }
+		}
+		else {
+			return "records not found";
+		}
 	}
 
 	@Override
