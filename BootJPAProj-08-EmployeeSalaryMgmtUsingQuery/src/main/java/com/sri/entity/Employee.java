@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@Table(name="employee_jpa")
+@Table(name="employee_data")
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Employee {

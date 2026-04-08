@@ -21,7 +21,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     List<Employee> searchByExp(@Param("exp") Integer exp);
     @Query("select count(*) from Employee where dept=?1")
     int countEmployeesInDept(String dept);
-    @Query(" from Employee where sal= (select max(sal) from Employee)")
+    @Query(value=" select * from Employee_data where sal= (select max(sal) from Employee_data)",nativeQuery = true)
     Optional<Employee> getHighestSalEmp();
     @Query("update Employee set sal=sal+(sal*?1 /100)where sal=?2")
     @Modifying
