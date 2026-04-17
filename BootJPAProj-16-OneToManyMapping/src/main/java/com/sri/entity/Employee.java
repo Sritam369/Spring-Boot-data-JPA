@@ -33,7 +33,12 @@ public class Employee {
 	private Long id;
 	@NonNull
 	private String name;
-	@NonNull
 	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL,mappedBy = "emp")
 	private List<Address> addr;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }

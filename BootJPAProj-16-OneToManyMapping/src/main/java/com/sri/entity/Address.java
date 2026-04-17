@@ -2,6 +2,8 @@ package com.sri.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,10 +23,20 @@ import lombok.Setter;
 public class Address {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	@NonNull
 	private String city;
 	@NonNull
 	private String state;
-	@ManyToOne(targetEntity = Employee.class,cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Employee.class)
 	@JoinColumn(name="addr_id",referencedColumnName = "id")
 	private Employee emp;
+	
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", city=" + city + ", state=" + state + "]";
+	}
+	
+	
 }

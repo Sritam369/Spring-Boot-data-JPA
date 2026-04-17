@@ -18,6 +18,16 @@ public class Runner implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+		
+		while(true) {
+			IO.println("1.Add employee");
+			IO.println("2.fetch employee");
+			IO.println("3.update employee");
+			IO.println("4.delete employee");
+			IO.println("5.exit");
+			int choice = Integer.parseInt(IO.readln("enter choice"));
+			
+			if(choice==1) {
 		Address add1 = new Address();
 		add1.setCity("hyd");
 		add1.setState("telengana");
@@ -32,6 +42,24 @@ public class Runner implements CommandLineRunner {
 	    emp.setAddr(List.of(add1,add2));
 	    
 	    IO.println(serv.addEmployee(emp));
+			}
+			else if(choice==2) {
+				List<Employee> fetchEmployee = serv.fetchEmployee();
+				if(fetchEmployee.isEmpty()) {
+					IO.println("no records found");
+				}
+				else {
+					fetchEmployee.forEach(IO::println);
+				}
+			}
+			else if(choice==3) {
+				Long id = Long.parseLong(IO.readln("enter id"));
+				IO.println(serv.updateEmployee(id, "sri", "bls", "odisha"));
+			}
+			else if(choice==4) {
+				IO.println(serv.deleteEmployee(100l));
+			}
+		}
 
 	}
 
