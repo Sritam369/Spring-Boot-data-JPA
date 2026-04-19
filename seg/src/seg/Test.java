@@ -1,17 +1,26 @@
 package seg;
 
-public class Test{
+public class Test {
+    public static void main(String[] args) {
 
-void main() {
-	int a = 10234;
-	int k = 0;int r=0;
-for(int i=a;i!=0;i/=10) {
-	
-	if(i%10!=0) {
-		r = r*10+(i%10);
-	}
-	k = k*10+r;
+        int n = 122334;
+
+        for(int i = 0; i <= 9; i++) {
+            int count = 0;
+            int temp = n;
+
+            while(temp != 0) {
+                int digit = temp % 10;
+                if(digit == i) {
+                    count++;
+                }
+                temp /= 10;
+            }
+
+            if(count > 0) {
+                System.out.println(i + " -> " + count);
+            }
+        }
+    }
 }
-IO.println(k);
-}
-}
+
