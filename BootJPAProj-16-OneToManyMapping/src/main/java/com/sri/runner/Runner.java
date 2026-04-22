@@ -24,7 +24,8 @@ public class Runner implements CommandLineRunner {
 			IO.println("2.fetch employee");
 			IO.println("3.update employee");
 			IO.println("4.delete employee");
-			IO.println("5.exit");
+			IO.println("5.update only employee address");
+			IO.println("6.exit");
 			int choice = Integer.parseInt(IO.readln("enter choice"));
 			
 			if(choice==1) {
@@ -57,7 +58,10 @@ public class Runner implements CommandLineRunner {
 				IO.println(serv.updateEmployee(id, "sri", "bls", "odisha"));
 			}
 			else if(choice==4) {
-				IO.println(serv.deleteEmployee(100l));
+				IO.println(serv.deleteEmployee(101l));
+			}
+			else if(choice==5) {
+				IO.println(serv.updateAddress(101l));
 			}
 		}
 

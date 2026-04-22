@@ -8,38 +8,29 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-@AllArgsConstructor
-@Table(name="Employee_assc_mapping")
-public class Employee {
+@Table(name="dept_oneToMany")
+public class Department {
 
 	@Id
-	@SequenceGenerator(name="gen1",sequenceName = "s2",initialValue = 100,allocationSize = 1)
+	@SequenceGenerator(name="gen1",sequenceName = "s3",initialValue = 100,allocationSize = 1)
 	@GeneratedValue(generator="gen1",strategy = GenerationType.SEQUENCE)
 	private Long id;
 	@NonNull
 	private String name;
-	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL,mappedBy = "emp",fetch = FetchType.EAGER)
-	private List<Address> addr;
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", address="+addr+" ]";
-	}
-	
-	
+	@NonNull
+	private String location;
+	@OneToMany(targetEntity = Employee.class,cascade = CascadeType.ALL,mappedBy="dept",fetch = FetchType.EAGER)
+	private List<Employee> emps;
 }

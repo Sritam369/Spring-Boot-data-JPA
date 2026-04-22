@@ -61,5 +61,25 @@ public class EmployeeService {
 	    else {
 	    	return "employee not found";
 	    }
+	    
+	}
+	
+	public String updateAddress(Long id) {
+		Optional<Employee> byId = repo.findById(id);
+		if(byId.isPresent()) {
+			Employee employee = byId.get();
+			List<Address> addr = employee.getAddr();
+			Address add = new Address();
+			add.setCity("bhubaneswar");
+			add.setState("odisha");
+			addr.add(add);
+			add.setEmp(employee);
+			repo2.save(add);
+			return id+" employee adress updated";
+		}
+		else {
+			return "id not found";
+		}
+		
 	}
 }
