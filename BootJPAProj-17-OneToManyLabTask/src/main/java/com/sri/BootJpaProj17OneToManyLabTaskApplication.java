@@ -1,0 +1,13 @@
+package com.sri;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BootJpaProj17OneToManyLabTaskApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BootJpaProj17OneToManyLabTaskApplication.class, args);
+	}
+
+}
