@@ -14,4 +14,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 	List<Employee>fetchEmpsByDept(Department dept);
 	@Query("from Employee where salary > 50000")
 	List<Employee>fetchEmpsWithSalGreaterThan50000();
+	@Query("delete from Employee where id=?1")
+	Employee deleteEmpById(Long id);
 }

@@ -65,4 +65,26 @@ public class OfficeService {
 	public List<Employee> fetchEmpWithSalGt50k(){
 		return eRepo.fetchEmpsWithSalGreaterThan50000();
 	}
+	
+	public String deleteEmpById(Long id) {
+		Optional<Employee> byId = eRepo.findById(id);
+		if(byId.isEmpty()) {
+			return "no employee found with id : "+id;
+		}
+		else {
+			Employee employee = byId.get();
+			employee.setDept(null);
+			eRepo.save(employee);
+			eRepo.delete(employee);
+			return "Employee with id "+id+" deleted";
+		}
+	}
+	
+	public String transferEmpByIdToNewDept(Long eid,Long did) {
+		Employee emp = eRepo.findById(eid).orElseThrow(()-> new IllegalArgumentException("no id matched"));
+		Department dept = dRepo.findById(did).orElseThrow(()-> new IllegalArgumentException("no id matched"));
+		emp.setDept(dept);
+		eRepo.save(emp);
+		return "employee with id : "+eid+" transferred to department with id : "+did;
+	}
 }

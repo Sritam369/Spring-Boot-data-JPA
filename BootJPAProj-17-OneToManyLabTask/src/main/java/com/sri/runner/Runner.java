@@ -27,7 +27,9 @@ public class Runner implements CommandLineRunner {
 			IO.println("4. fetch all departments");
 			IO.println("5. fetch employees by department");
 			IO.println("6. fetch employees with salary greater than 50k");
-			IO.println("7. exit");
+			IO.println("7. delete only one employee by id");
+			IO.println("8. transfer one employee to other department");
+			IO.println("9. exit");
 			
 			int choice = Integer.parseInt(IO.readln("enter your choice"));
 			
@@ -111,6 +113,15 @@ public class Runner implements CommandLineRunner {
 				}
 			}
 			else if(choice==7) {
+				Long id = Long.parseLong(IO.readln("enter employee id"));		
+				IO.println(serv.deleteEmpById(id));
+			}
+			else if(choice==8) {
+				Long eid = Long.parseLong(IO.readln("enter employee id"));
+				Long did = Long.parseLong(IO.readln("enter department id"));		
+				IO.println(serv.transferEmpByIdToNewDept(eid, did));
+			}
+			else if(choice==9) {
 				System.exit(0);
 			}
 			else {
