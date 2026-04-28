@@ -90,10 +90,8 @@ public class Runner implements CommandLineRunner {
 			else if(choice==3) {
 				Long id = Long.parseLong(IO.readln("enter employee id"));
 				Employee emp = repo1.findById(id).orElseThrow(()-> new IllegalArgumentException("no id found"));
-				IO.print(emp.getEid()+" "+emp.getEmpName()+" "+emp.getDepartment());IO.println();
-				IO.println("--------projects--------");
 				List<Project> projects = emp.getProjects();
-				projects.forEach(IO::println);
+				IO.print(emp.getEid()+" "+emp.getEmpName()+" "+emp.getDepartment()+" "+projects);IO.println();
 				
 			}
 			else if(choice==4) {
