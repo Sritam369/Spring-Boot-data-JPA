@@ -26,33 +26,33 @@ public class Runner implements CommandLineRunner {
 	private IMatrimonyServiceMgmt service;
 	@Override
 	public void run(String... args) throws Exception {
-		String name = IO.readln("enter name");
-		String addr = IO.readln("enter address");
-		String photoPath = IO.readln("enter person photo file complete path");
-		String bioDataPath = IO.readln("enter person bio data file complete path");
-		boolean indian = Boolean.parseBoolean(IO.readln("is this person indian ? "));
-		
-		InputStream is =new FileInputStream(photoPath);
-		byte[] photoData = new byte[is.available()];
-		photoData = is.readAllBytes();
-		
-		File file = new File(bioDataPath);
-		Reader reader = new FileReader(file);
-		char bioDataContent[] = new char[(int) file.length()];
-		reader.read(bioDataContent);
-		
-		MarriageSeeker seeker = new MarriageSeeker(name,addr,photoData,LocalDateTime.of(1990, 11,23,12,45),bioDataContent,indian);
-		IO.println(service.registerMarriageSeeker(seeker));
+//		String name = IO.readln("enter name");
+//		String addr = IO.readln("enter address");
+//		String photoPath = IO.readln("enter person photo file complete path");
+//		String bioDataPath = IO.readln("enter person bio data file complete path");
+//		boolean indian = Boolean.parseBoolean(IO.readln("is this person indian ? "));
+//		
+//		InputStream is =new FileInputStream(photoPath);
+//		byte[] photoData = new byte[is.available()];
+//		photoData = is.readAllBytes();
+//		
+//		File file = new File(bioDataPath);
+//		Reader reader = new FileReader(file);
+//		char bioDataContent[] = new char[(int) file.length()];
+//		reader.read(bioDataContent);
+//		
+//		MarriageSeeker seeker = new MarriageSeeker(name,addr,photoData,LocalDateTime.of(1990, 11,23,12,45),bioDataContent,indian);
+//		IO.println(service.registerMarriageSeeker(seeker));
 		
 		Optional<MarriageSeeker> opt = service.searchSeekerById(100l);
 		if(opt.isPresent()) {
 			MarriageSeeker s = opt.get();
 			IO.println(s.getId()+" "+s.getName()+" "+s.getAddrs()+" "+s.isIndian());
 			
-			OutputStream os = new FileOutputStream("retrieve_photo.giff");
+			OutputStream os = new FileOutputStream("C:\\Users\\Sritam Chakrabartty\\Pictures\\retrieve_photo.jpg");
 			os.write(s.getPhoto());
 			os.flush();
-			Writer writer = new FileWriter("retrieve_biodata.txt");
+			Writer writer = new FileWriter("C:\\Users\\Sritam Chakrabartty\\Desktop\\retrieve_biodata.txt");
 			writer.write(s.getBiodata());
 			writer.flush();
 			os.close();
